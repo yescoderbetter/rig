@@ -73,6 +73,7 @@ where
 {
     async fn insert_documents<Doc: Serialize + rig::Embed + Send>(
         &self,
+        // note vec 动态数组，里面是一个元组，包含2个元素
         documents: Vec<(Doc, rig::OneOrMany<rig::embeddings::Embedding>)>,
     ) -> Result<(), VectorStoreError> {
         #[derive(Serialize, Deserialize, Clone, Debug, Default)]

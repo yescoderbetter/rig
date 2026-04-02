@@ -5,14 +5,15 @@ use aws_sdk_bedrockruntime::types::{
     InferenceConfiguration, SystemContentBlock, Tool, ToolConfiguration, ToolInputSchema,
     ToolSpecification,
 };
+use aws_smithy_types::Document;
 use rig::OneOrMany;
-use rig::completion::{CompletionError, Message};
+use rig::completion::{CompletionError, CompletionRequest, Message};
 use rig::message::{DocumentMediaType, UserContent};
 
-pub struct AwsCompletionRequest(pub rig::completion::CompletionRequest);
+pub struct AwsCompletionRequest(pub CompletionRequest);
 
 impl AwsCompletionRequest {
-    pub fn additional_params(&self) -> Option<aws_smithy_types::Document> {
+    pub fn additional_params(&self) -> Option<Document> {
         self.0
             .additional_params
             .to_owned()
