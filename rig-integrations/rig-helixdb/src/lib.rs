@@ -1,7 +1,7 @@
 use helix_rs::HelixDBClient;
 use rig::{
     embeddings::EmbeddingModel,
-    vector_store::{InsertDocuments, VectorStoreError, VectorStoreIndex, request::Filter},
+    vector_store::{request::Filter, InsertDocuments, VectorStoreError, VectorStoreIndex},
 };
 use serde::{Deserialize, Serialize};
 

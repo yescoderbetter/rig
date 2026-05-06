@@ -10,7 +10,7 @@ use crate::wasm_compat::*;
 pub use multipart::MultipartForm;
 pub use reqwest::Client as ReqwestClient;
 use std::pin::Pin;
-
+// note error 枚举的很好用例
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error("Http error: {0}")]
@@ -53,6 +53,8 @@ pub type LazyBody<T> = WasmBoxedFuture<'static, Result<T>>;
 
 pub type StreamingResponse = Response<BoxedStream>;
 
+// fixme nobody用于定义一个空的参数类型，给http的delete和get等不带参数等方法使用，
+// fixme Copy: 允许按值传递（零成本复制，因为它是零大小的)，这种设计很巧妙，利用了 Rust 的零大小类型特性来表示"无"的概念
 #[derive(Debug, Clone, Copy)]
 pub struct NoBody;
 

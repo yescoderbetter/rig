@@ -58,13 +58,13 @@ pub trait EmbeddingModel: WasmCompatSend + WasmCompatSync {
     fn embed_texts(
         &self,
         texts: impl IntoIterator<Item = String> + WasmCompatSend,
-    ) -> impl std::future::Future<Output = Result<Vec<Embedding>, EmbeddingError>> + WasmCompatSend;
+    ) -> impl Future<Output = Result<Vec<Embedding>, EmbeddingError>> + WasmCompatSend;
 
     /// Embed a single text document.
     fn embed_text(
         &self,
         text: &str,
-    ) -> impl std::future::Future<Output = Result<Embedding, EmbeddingError>> + WasmCompatSend {
+    ) -> impl Future<Output = Result<Embedding, EmbeddingError>> + WasmCompatSend {
         async {
             Ok(self
                 .embed_texts(vec![text.to_string()])
@@ -132,13 +132,13 @@ pub trait ImageEmbeddingModel: Clone + WasmCompatSend + WasmCompatSync {
     fn embed_images(
         &self,
         images: impl IntoIterator<Item = Vec<u8>> + WasmCompatSend,
-    ) -> impl std::future::Future<Output = Result<Vec<Embedding>, EmbeddingError>> + Send;
+    ) -> impl Future<Output = Result<Vec<Embedding>, EmbeddingError>> + Send;
 
     /// Embed a single image from bytes.
     fn embed_image<'a>(
         &'a self,
         bytes: &'a [u8],
-    ) -> impl std::future::Future<Output = Result<Embedding, EmbeddingError>> + WasmCompatSend {
+    ) -> impl Future<Output = Result<Embedding, EmbeddingError>> + WasmCompatSend {
         async move {
             Ok(self
                 .embed_images(vec![bytes.to_owned()])
